@@ -1,33 +1,41 @@
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider,
-} from "@react-navigation/native";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import "react-native-reanimated";
+import { useEffect } from "react";
 
-import "./global.css";
+SplashScreen.preventAutoHideAsync();
 
-import { useColorScheme } from "@/hooks/use-color-scheme";
-
-export const unstable_settings = {
-  anchor: "(tabs)",
-};
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 60 * 10,
+      retry: 2,
+    },
+  },
+});
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
+  const [fontsLoaded, fontError] = useFonts({
+    ShareTechMono: require("../assets/fonts/ShareTechMono-Regular.ttf"),
+    Nunito_400Regular: require("../assets/fonts/Nunito-Regular.ttf"),
+    Nunito_600SemiBold: require("../assets/fonts/Nunito-SemiBold.ttf"),
+    Nunito_700Bold: require("../assets/fonts/Nunito-Bold.ttf"),
+  });
+
+  useEffect(() => {
+    if (fontsLoaded || fontError) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded, fontError]);
+
+  if (!fontsLoaded && !fontError) return null;
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="modal"
-          options={{ presentation: "modal", title: "Modal" }}
-        />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <QueryClientProvider client={queryClient}>
+      <StatusBar style="light" />
+      <Stack screenOptions={{ headerShown: false }} />
+    </QueryClientProvider>
   );
 }
