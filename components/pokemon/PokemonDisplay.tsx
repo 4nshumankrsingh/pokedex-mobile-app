@@ -1,13 +1,15 @@
+import PokemonAbilities from "@/components/pokemon/PokemonAbilities";
+import PokemonDescription from "@/components/pokemon/PokemonDescription";
+import PokemonEvolution from "@/components/pokemon/PokemonEvolution";
+import PokemonMoves from "@/components/pokemon/PokemonMoves";
+import PokemonNavigation from "@/components/pokemon/PokemonNavigation";
+import PokemonStats from "@/components/pokemon/PokemonStats";
 import { TypeColors } from "@/constants/colors";
 import { usePokemon, usePokemonSpecies } from "@/hooks/usePokemon";
 import { usePokemonStore } from "@/store/pokemonStore";
 import { Image } from "expo-image";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
 function TypeBadge({ type }: { type: string }) {
   const color = TypeColors[type] ?? "#A8A878";
@@ -128,14 +130,20 @@ export default function PokemonDisplay() {
 
   const heightM = (pokemon.height / 10).toFixed(1);
   const weightKg = (pokemon.weight / 10).toFixed(1);
+  const evolutionChainId = species?.evolution_chain?.url
+    ? (() => {
+        const parts = species.evolution_chain.url.split("/").filter(Boolean);
+        return parseInt(parts[parts.length - 1], 10);
+      })()
+    : null;
 
   return (
     <ScrollView
       showsVerticalScrollIndicator={false}
-      contentContainerStyle={{ paddingBottom: insets.bottom + 16 }}
+      contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
     >
-      {/* Sprite + identity block */}
-      <View className="items-center px-4 pt-4 pb-6 bg-pokedex-screen mx-4 rounded-2xl border border-pokedex-border mt-2">
+      <PokemonNavigation currentId={pokemon.id} />
+      <View className="items-center px-4 pt-4 pb-6 bg-pokedex-screen mx-4 rounded-2xl border border-pokedex-border">
         {/* ID */}
         <Text
           className="text-xs tracking-widest mb-1"
@@ -202,20 +210,24 @@ export default function PokemonDisplay() {
         </View>
       </View>
 
-      <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-        <Text
-          className="text-xs tracking-widest"
-          style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-        >
-          STATS · ABILITIES · EVOLUTION · MOVES · DESCRIPTION
-        </Text>
-        <Text
-          className="text-xs mt-1"
-          style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
-        >
-          Detail sections load in next session.
-        </Text>
-      </View>
+      {/* Description */}
+      {species?.flavor_text_entries?.length ? (
+        <PokemonDescription entries={species.flavor_text_entries} />
+      ) : null}
+
+      {/* Stats */}
+      <PokemonStats stats={pokemon.stats} />
+
+      {/* Abilities */}
+      <PokemonAbilities abilities={pokemon.abilities} />
+
+      {/* Evolution */}
+      {evolutionChainId ? (
+        <PokemonEvolution evolutionChainId={evolutionChainId} />
+      ) : null}
+
+      {/* Moves */}
+      <PokemonMoves moves={pokemon.moves} />
     </ScrollView>
   );
 }
