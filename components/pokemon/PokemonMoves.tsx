@@ -1,5 +1,8 @@
 import { PokemonMove } from "@/types/pokemon";
-import { useState } from "react";
+import * as Haptics from "expo-haptics";
+import { useRouter } from "expo-router";
+import { ChevronRight } from "lucide-react-native";
+import { Platform, useState } from "react";
 import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 
 const LEARN_METHODS = ["level-up", "machine", "egg", "tutor"] as const;
@@ -14,6 +17,7 @@ const METHOD_LABELS: Record<LearnMethod, string> = {
 
 export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
   const [activeMethod, setActiveMethod] = useState<LearnMethod>("level-up");
+  const router = useRouter();
 
   const filtered = moves
     .filter((m) =>
@@ -34,6 +38,12 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
     })
     .sort((a, b) => a.level - b.level || a.name.localeCompare(b.name));
 
+  const handleMovePress = (name: string) => {
+    if (Platform.OS !== "web")
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+    router.push(`/moves/${name}`);
+  };
+
   return (
     <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
       <Text
@@ -43,6 +53,7 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
         MOVES
       </Text>
 
+      {/* Learn method tabs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -102,21 +113,21 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
                 LVL
               </Text>
             )}
+            <View className="w-5" />
           </View>
 
           {filtered.map((move, i) => (
-            <View
+            <TouchableOpacity
               key={move.name}
-              className={`flex-row items-center py-2 px-1 ${
+              onPress={() => handleMovePress(move.name)}
+              activeOpacity={0.7}
+              className={`flex-row items-center py-2.5 px-1 ${
                 i < filtered.length - 1 ? "border-b border-pokedex-border" : ""
               }`}
             >
               <Text
                 className="flex-1 text-sm capitalize"
-                style={{
-                  fontFamily: "Nunito_400Regular",
-                  color: "#A0A0B0",
-                }}
+                style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
               >
                 {move.name.replace(/-/g, " ")}
               </Text>
@@ -128,7 +139,13 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
                   {move.level === 0 ? "—" : move.level}
                 </Text>
               )}
-            </View>
+              <ChevronRight
+                size={14}
+                color="#606070"
+                strokeWidth={1.8}
+                style={{ marginLeft: 4 }}
+              />
+            </TouchableOpacity>
           ))}
         </View>
       )}
