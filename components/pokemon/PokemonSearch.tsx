@@ -5,14 +5,14 @@ import * as Haptics from "expo-haptics";
 import { Dices, Search, SlidersHorizontal, X } from "lucide-react-native";
 import { useRef, useState } from "react";
 import {
-    Modal,
-    Platform,
-    Pressable,
-    ScrollView,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Modal,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 
 const TYPE_LIST = [
@@ -35,10 +35,6 @@ const TYPE_LIST = [
   "steel",
   "fairy",
 ];
-
-function capitalize(str: string) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
 
 export default function PokemonSearch() {
   const { query, setQuery, suggestions, isLoading, popular } =
@@ -75,23 +71,21 @@ export default function PokemonSearch() {
 
   return (
     <View className="px-4 pt-4 pb-2">
-      {/* Title */}
       <Text
-        className="text-pokedex-red text-2xl tracking-widest mb-4"
-        style={{ fontFamily: "ShareTechMono" }}
+        className="text-pokedex-red text-2xl mb-4"
+        style={{ fontFamily: "Orbitron_700Bold" }}
       >
         POKÉDEX
       </Text>
 
       <View className="flex-row items-center gap-2 mb-3">
-        {/* Search input */}
         <View
           className={`flex-1 flex-row items-center bg-bg-input rounded-lg px-3 gap-2 border ${
             isFocused ? "border-pokedex-red" : "border-pokedex-border"
           }`}
           style={{ height: 44 }}
         >
-          <Search size={16} color="#606070" strokeWidth={1.8} />
+          <Search size={16} color="#9CA3AF" strokeWidth={1.8} />
           <TextInput
             ref={inputRef}
             value={query}
@@ -99,7 +93,7 @@ export default function PokemonSearch() {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 150)}
             placeholder="Name or number..."
-            placeholderTextColor="#606070"
+            placeholderTextColor="#6B7280"
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="search"
@@ -107,16 +101,15 @@ export default function PokemonSearch() {
               if (query.trim()) handleSelect(query.trim().toLowerCase());
             }}
             className="flex-1 text-white text-sm"
-            style={{ fontFamily: "Nunito_400Regular" }}
+            style={{ fontFamily: "RobotoMono_400Regular" }}
           />
           {query.length > 0 && (
             <TouchableOpacity onPress={() => setQuery("")}>
-              <X size={16} color="#606070" strokeWidth={1.8} />
+              <X size={16} color="#6B7280" strokeWidth={1.8} />
             </TouchableOpacity>
           )}
         </View>
 
-        {/* Type filter button */}
         <TouchableOpacity
           onPress={() => setTypeModalVisible(true)}
           className={`items-center justify-center rounded-lg border ${
@@ -128,21 +121,21 @@ export default function PokemonSearch() {
         >
           <SlidersHorizontal
             size={18}
-            color={selectedType ? "#CC0000" : "#606070"}
+            color={selectedType ? "#E53E3E" : "#9CA3AF"}
             strokeWidth={1.8}
           />
         </TouchableOpacity>
 
-        {/* Random button */}
         <TouchableOpacity
           onPress={handleRandom}
           className="items-center justify-center rounded-lg border border-pokedex-border bg-bg-input"
           style={{ width: 44, height: 44 }}
         >
-          <Dices size={18} color="#606070" strokeWidth={1.8} />
+          <Dices size={18} color="#9CA3AF" strokeWidth={1.8} />
         </TouchableOpacity>
       </View>
 
+      {/* Active type filter badge */}
       {selectedType && (
         <View className="flex-row items-center mb-3">
           <View
@@ -154,9 +147,9 @@ export default function PokemonSearch() {
               style={{ backgroundColor: TypeColors[selectedType] }}
             />
             <Text
-              className="text-xs tracking-widest"
+              className="text-xs"
               style={{
-                fontFamily: "ShareTechMono",
+                fontFamily: "Orbitron_500Medium",
                 color: TypeColors[selectedType],
               }}
             >
@@ -169,7 +162,6 @@ export default function PokemonSearch() {
         </View>
       )}
 
-      {/* Autocomplete suggestions */}
       {showSuggestions && (
         <View className="bg-bg-card border border-pokedex-border rounded-lg mb-3 overflow-hidden">
           {suggestions.map((s, i) => (
@@ -184,13 +176,13 @@ export default function PokemonSearch() {
             >
               <Text
                 className="text-white text-sm capitalize"
-                style={{ fontFamily: "Nunito_400Regular" }}
+                style={{ fontFamily: "RobotoMono_400Regular" }}
               >
                 {s.name}
               </Text>
               <Text
-                className="text-textSecondary text-xs"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs"
+                style={{ fontFamily: "Orbitron", color: "#6B7280" }}
               >
                 #{s.id.padStart(4, "0")}
               </Text>
@@ -203,8 +195,8 @@ export default function PokemonSearch() {
       {!isFocused && !query && (
         <View>
           <Text
-            className="text-xs tracking-widest mb-2"
-            style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+            className="text-xs mb-2"
+            style={{ fontFamily: "Orbitron_500Medium", color: "#6B7280" }}
           >
             POPULAR
           </Text>
@@ -218,13 +210,13 @@ export default function PokemonSearch() {
                 >
                   <Text
                     className="text-white text-xs capitalize"
-                    style={{ fontFamily: "Nunito_400Regular" }}
+                    style={{ fontFamily: "RobotoMono_400Regular" }}
                   >
                     {p.name}
                   </Text>
                   <Text
                     className="text-xs mt-0.5"
-                    style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                    style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                   >
                     #{p.id}
                   </Text>
@@ -249,17 +241,16 @@ export default function PokemonSearch() {
         <View className="bg-pokedex-panel border-t border-pokedex-border rounded-t-2xl px-4 pt-4 pb-10">
           <View className="flex-row items-center justify-between mb-4">
             <Text
-              className="text-white text-sm tracking-widest"
-              style={{ fontFamily: "ShareTechMono" }}
+              className="text-white text-sm"
+              style={{ fontFamily: "Orbitron_700Bold" }}
             >
               FILTER BY TYPE
             </Text>
             <TouchableOpacity onPress={() => setTypeModalVisible(false)}>
-              <X size={20} color="#606070" strokeWidth={1.8} />
+              <X size={20} color="#9CA3AF" strokeWidth={1.8} />
             </TouchableOpacity>
           </View>
 
-          {/* All types button */}
           <TouchableOpacity
             onPress={() => handleTypeSelect(null)}
             className={`mb-3 py-2 px-4 rounded-lg border ${
@@ -269,10 +260,10 @@ export default function PokemonSearch() {
             }`}
           >
             <Text
-              className="text-center text-xs tracking-widest"
+              className="text-center text-xs"
               style={{
-                fontFamily: "ShareTechMono",
-                color: !selectedType ? "#CC0000" : "#A0A0B0",
+                fontFamily: "Orbitron_500Medium",
+                color: !selectedType ? "#E53E3E" : "#9CA3AF",
               }}
             >
               ALL TYPES
@@ -289,17 +280,17 @@ export default function PokemonSearch() {
                   onPress={() => handleTypeSelect(type)}
                   className="rounded-lg px-3 py-2 border"
                   style={{
-                    borderColor: isSelected ? color : "#0f3460",
-                    backgroundColor: isSelected ? color + "33" : "#2a2a3e",
+                    borderColor: isSelected ? color : "#1E40AF",
+                    backgroundColor: isSelected ? color + "33" : "#262A3D",
                     minWidth: "28%",
                     alignItems: "center",
                   }}
                 >
                   <Text
-                    className="text-xs tracking-widest"
+                    className="text-xs"
                     style={{
-                      fontFamily: "ShareTechMono",
-                      color: isSelected ? color : "#A0A0B0",
+                      fontFamily: "Orbitron_500Medium",
+                      color: isSelected ? color : "#9CA3AF",
                     }}
                   >
                     {type.toUpperCase()}

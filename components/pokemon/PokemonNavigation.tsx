@@ -34,14 +34,14 @@ export default function PokemonNavigation({
       >
         <ChevronLeft
           size={16}
-          color={hasPrev ? "#A0A0B0" : "#606070"}
+          color={hasPrev ? "#9CA3AF" : "#6B7280"}
           strokeWidth={1.8}
         />
         <Text
           className="text-xs"
           style={{
-            fontFamily: "ShareTechMono",
-            color: hasPrev ? "#A0A0B0" : "#606070",
+            fontFamily: "RobotoMono_400Regular",
+            color: hasPrev ? "#9CA3AF" : "#6B7280",
           }}
         >
           #{String(currentId - 1).padStart(3, "0")}
@@ -49,8 +49,8 @@ export default function PokemonNavigation({
       </TouchableOpacity>
 
       <Text
-        className="text-xs tracking-widest"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+        className="text-xs"
+        style={{ fontFamily: "Orbitron_500Medium", color: "#6B7280" }}
       >
         #{String(currentId).padStart(4, "0")}
       </Text>
@@ -67,15 +67,15 @@ export default function PokemonNavigation({
         <Text
           className="text-xs"
           style={{
-            fontFamily: "ShareTechMono",
-            color: hasNext ? "#A0A0B0" : "#606070",
+            fontFamily: "RobotoMono_400Regular",
+            color: hasNext ? "#9CA3AF" : "#6B7280",
           }}
         >
           #{String(currentId + 1).padStart(3, "0")}
         </Text>
         <ChevronRight
           size={16}
-          color={hasNext ? "#A0A0B0" : "#606070"}
+          color={hasNext ? "#9CA3AF" : "#6B7280"}
           strokeWidth={1.8}
         />
       </TouchableOpacity>
