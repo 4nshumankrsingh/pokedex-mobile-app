@@ -18,10 +18,14 @@ const queryClient = new QueryClient({
 
 export default function RootLayout() {
   const [fontsLoaded, fontError] = useFonts({
-    ShareTechMono: require("../assets/fonts/ShareTechMono-Regular.ttf"),
-    Nunito_400Regular: require("../assets/fonts/Nunito-Regular.ttf"),
-    Nunito_600SemiBold: require("../assets/fonts/Nunito-SemiBold.ttf"),
-    Nunito_700Bold: require("../assets/fonts/Nunito-Bold.ttf"),
+    Orbitron: require("../assets/fonts/Orbitron-Regular.ttf"),
+    Orbitron_500Medium: require("../assets/fonts/Orbitron-Medium.ttf"),
+    Orbitron_700Bold: require("../assets/fonts/Orbitron-Bold.ttf"),
+    Orbitron_900Black: require("../assets/fonts/Orbitron-Black.ttf"),
+    RobotoMono_400Regular: require("../assets/fonts/RobotoMono-Regular.ttf"),
+    RobotoMono_500Medium: require("../assets/fonts/RobotoMono-Medium.ttf"),
+    RobotoMono_600SemiBold: require("../assets/fonts/RobotoMono-SemiBold.ttf"),
+    RobotoMono_700Bold: require("../assets/fonts/RobotoMono-Bold.ttf"),
   });
 
   useEffect(() => {
