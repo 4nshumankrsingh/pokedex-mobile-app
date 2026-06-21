@@ -1,7 +1,10 @@
 export const Fonts = {
-  // Display / Pokédex chrome — digital aesthetic
-  mono: "ShareTechMono",
-  regular: "Nunito_400Regular",
-  semiBold: "Nunito_600SemiBold",
-  bold: "Nunito_700Bold",
+  digital: "Orbitron",
+  digitalMedium: "Orbitron_500Medium",
+  digitalBold: "Orbitron_700Bold",
+  digitalBlack: "Orbitron_900Black",
+  mono: "RobotoMono_400Regular",
+  monoMedium: "RobotoMono_500Medium",
+  monoSemiBold: "RobotoMono_600SemiBold",
+  monoBold: "RobotoMono_700Bold",
 };

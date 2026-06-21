@@ -1,58 +1,61 @@
 export const TypeColors: Record<string, string> = {
-  normal: "#A8A878",
-  fire: "#F08030",
-  water: "#6890F0",
-  electric: "#F8D030",
-  grass: "#78C850",
-  ice: "#98D8D8",
-  fighting: "#C03028",
-  poison: "#A040A0",
-  ground: "#E0C068",
-  flying: "#A890F0",
-  psychic: "#F85888",
-  bug: "#A8B820",
-  rock: "#B8A038",
-  ghost: "#705898",
-  dragon: "#7038F8",
-  dark: "#705848",
-  steel: "#B8B8D0",
-  fairy: "#EE99AC",
+  normal: "#8E9B92",
+  fire: "#E8772E",
+  water: "#3B5FE0",
+  electric: "#FFD500",
+  grass: "#36A832",
+  ice: "#5CE0E0",
+  fighting: "#A8201D",
+  poison: "#B340B3",
+  ground: "#E0B82E",
+  flying: "#8FA3E8",
+  psychic: "#E0508C",
+  bug: "#8C9B2E",
+  rock: "#A88A1D",
+  ghost: "#6B4FA0",
+  dragon: "#7C2EE0",
+  dark: "#4A372E",
+  steel: "#9099A8",
+  fairy: "#E08FC4",
 };
 
 export const UIColors = {
-  // Pokédex chrome
-  pokedexRed: "#CC0000",
-  pokedexDarkRed: "#990000",
-  pokedexScreen: "#1a1a2e",
-  pokedexPanel: "#16213e",
-  pokedexBorder: "#0f3460",
+  // Pokédex brand colors
+  pokedexRed: "#E53E3E",
+  pokedexRedDark: "#D32F2F",
+  pokedexBlue: "#4C7DF0",
+  pokedexBlueDark: "#2563EB",
+  pokedexGreen: "#16A34A",
+  pokedexYellow: "#FFCC33",
+
+  // Digital screen colors
+  screenBg: "#13141C",
+  screenText: "#4ADE80",
+  screenBorder: "#1E40AF",
+
+  // Backgrounds
+  backgroundDark: "#09090B",
+  backgroundCard: "#1A1D29",
+  backgroundInput: "#262A3D",
+  pokedexPanel: "#13141C",
+  pokedexBorder: "#1E40AF",
 
   // Text
   textPrimary: "#FFFFFF",
-  textSecondary: "#A0A0B0",
-  textMuted: "#606070",
-
-  // Backgrounds
-  backgroundDark: "#0d0d1a",
-  backgroundCard: "#1e1e30",
-  backgroundInput: "#2a2a3e",
-
-  // Accents
-  accentBlue: "#4A90D9",
-  accentGreen: "#4CAF50",
-  accentYellow: "#FFD700",
+  textSecondary: "#9CA3AF",
+  textMuted: "#6B7280",
 
   // Status
-  success: "#4CAF50",
-  warning: "#FF9800",
-  error: "#F44336",
+  success: "#16A34A",
+  warning: "#FFCC33",
+  error: "#E53E3E",
 };
 
 export const StatColors: Record<string, string> = {
-  hp: "#FF5959",
-  attack: "#F5AC78",
-  defense: "#FAE078",
-  "special-attack": "#9DB7F5",
-  "special-defense": "#A7DB8D",
-  speed: "#FA92B2",
+  hp: "#E53E3E",
+  attack: "#E8772E",
+  defense: "#FFD500",
+  "special-attack": "#3B5FE0",
+  "special-defense": "#36A832",
+  speed: "#E0508C",
 };
