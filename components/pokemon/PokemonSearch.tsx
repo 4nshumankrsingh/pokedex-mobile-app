@@ -162,6 +162,7 @@ export default function PokemonSearch() {
         </View>
       )}
 
+      {/* Autocomplete suggestions */}
       {showSuggestions && (
         <View className="bg-bg-card border border-pokedex-border rounded-lg mb-3 overflow-hidden">
           {suggestions.map((s, i) => (
@@ -191,7 +192,6 @@ export default function PokemonSearch() {
         </View>
       )}
 
-      {/* Popular Pokémon chips */}
       {!isFocused && !query && (
         <View>
           <Text
@@ -227,7 +227,6 @@ export default function PokemonSearch() {
         </View>
       )}
 
-      {/* Type filter modal */}
       <Modal
         visible={typeModalVisible}
         transparent
