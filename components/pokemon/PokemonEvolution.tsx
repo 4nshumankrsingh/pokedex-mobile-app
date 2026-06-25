@@ -5,11 +5,6 @@ import { Image } from "expo-image";
 import { ChevronRight } from "lucide-react-native";
 import { Text, TouchableOpacity, View } from "react-native";
 
-function extractId(url: string) {
-  const parts = url.split("/").filter(Boolean);
-  return parseInt(parts[parts.length - 1], 10);
-}
-
 function SpriteNode({
   name,
   onPress,
@@ -50,7 +45,7 @@ function SpriteNode({
       </View>
       <Text
         className="text-xs mt-1 capitalize text-center"
-        style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+        style={{ fontFamily: "RobotoMono_400Regular", color: "#9CA3AF" }}
         numberOfLines={1}
       >
         {name}
@@ -58,7 +53,7 @@ function SpriteNode({
       {id ? (
         <Text
           className="text-xs"
-          style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+          style={{ fontFamily: "Orbitron", color: "#6B7280" }}
         >
           #{String(id).padStart(3, "0")}
         </Text>
@@ -86,11 +81,11 @@ function EvolutionRow({
         isActive={selectedPokemonId === from}
       />
       <View className="flex-1 items-center px-2">
-        <ChevronRight size={16} color="#606070" strokeWidth={1.8} />
+        <ChevronRight size={16} color="#6B7280" strokeWidth={1.8} />
         {detail ? (
           <Text
             className="text-xs text-center mt-1"
-            style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+            style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
             numberOfLines={2}
           >
             {detail}
@@ -147,16 +142,19 @@ export default function PokemonEvolution({
 
   if (!rows.length) {
     return (
-      <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-        <Text
-          className="text-xs tracking-widest mb-2"
-          style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-        >
-          EVOLUTION
-        </Text>
+      <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
+        <View className="flex-row items-center justify-between mb-2">
+          <Text
+            className="text-xs"
+            style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+          >
+            EVOLUTION CHAIN
+          </Text>
+          <View className="w-2 h-2 rounded-full bg-pokedex-border" />
+        </View>
         <Text
           className="text-xs"
-          style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
         >
           This Pokémon does not evolve.
         </Text>
@@ -165,13 +163,16 @@ export default function PokemonEvolution({
   }
 
   return (
-    <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-      <Text
-        className="text-xs tracking-widest mb-4"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-      >
-        EVOLUTION
-      </Text>
+    <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
+      <View className="flex-row items-center justify-between mb-4">
+        <Text
+          className="text-xs"
+          style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+        >
+          EVOLUTION CHAIN
+        </Text>
+        <View className="w-2 h-2 rounded-full bg-pokedex-green" />
+      </View>
       {rows.map((row, i) => (
         <EvolutionRow key={i} from={row.from} to={row.to} detail={row.detail} />
       ))}

@@ -3,10 +3,10 @@ import * as Haptics from "expo-haptics";
 import { BookOpen, Layers, Package, Search, Swords } from "lucide-react-native";
 import { Platform, Pressable, Text, View } from "react-native";
 import Animated, {
-    useAnimatedStyle,
-    useSharedValue,
-    withSpring,
-    withTiming,
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -59,7 +59,7 @@ function TabItem({
   };
 
   const { Icon } = tab;
-  const color = isFocused ? "#CC0000" : "#606070";
+  const color = isFocused ? "#E53E3E" : "#6B7280";
 
   return (
     <Pressable
@@ -70,18 +70,14 @@ function TabItem({
       accessibilityLabel={tab.label}
     >
       <Animated.View style={animatedStyle} className="items-center gap-1">
-        {/* Active indicator line at top */}
         <Animated.View
           style={indicatorStyle}
           className="absolute -top-2 w-6 h-0.5 bg-pokedex-red rounded-full"
         />
         <Icon size={22} color={color} strokeWidth={isFocused ? 2.5 : 1.8} />
         <Text
-          className="text-[9px] tracking-widest"
-          style={{
-            fontFamily: "ShareTechMono",
-            color,
-          }}
+          className="text-[9px]"
+          style={{ fontFamily: "Orbitron_500Medium", color }}
         >
           {tab.label}
         </Text>

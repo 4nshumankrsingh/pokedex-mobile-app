@@ -26,15 +26,17 @@ export default function PokemonDescription({
   if (!versions.length) return null;
 
   return (
-    <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-      <Text
-        className="text-xs tracking-widest mb-3"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-      >
-        DESCRIPTION
-      </Text>
+    <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
+      <View className="flex-row items-center justify-between mb-3">
+        <Text
+          className="text-xs"
+          style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+        >
+          POKÉDEX ENTRY
+        </Text>
+        <View className="w-2 h-2 rounded-full bg-pokedex-green" />
+      </View>
 
-      {/* Version selector */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -49,18 +51,18 @@ export default function PokemonDescription({
                 onPress={() => setSelectedVersion(v.version.name)}
                 className={`px-3 py-1 rounded-full border ${
                   isSelected
-                    ? "border-pokedex-red bg-pokedex-red/20"
+                    ? "border-pokedex-blue bg-pokedex-blue/20"
                     : "border-pokedex-border bg-bg-input"
                 }`}
               >
                 <Text
                   className="text-xs capitalize"
                   style={{
-                    fontFamily: "ShareTechMono",
-                    color: isSelected ? "#CC0000" : "#606070",
+                    fontFamily: "Orbitron_500Medium",
+                    color: isSelected ? "#4C7DF0" : "#6B7280",
                   }}
                 >
-                  {v.version.name.replace("-", " ")}
+                  {v.version.name.replace(/-/g, " ")}
                 </Text>
               </TouchableOpacity>
             );
@@ -71,7 +73,7 @@ export default function PokemonDescription({
       {currentEntry ? (
         <Text
           className="text-sm leading-6"
-          style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#D1D5DB" }}
         >
           {cleanFlavorText(currentEntry.flavor_text)}
         </Text>

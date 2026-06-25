@@ -1,5 +1,6 @@
 import { useAbility } from "@/hooks/usePokemon";
 import { PokemonAbility } from "@/types/pokemon";
+import { Eye, EyeOff } from "lucide-react-native";
 import { useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -21,24 +22,27 @@ function AbilityRow({
     <TouchableOpacity
       onPress={() => setExpanded((v) => !v)}
       activeOpacity={0.7}
-      className={`p-3 rounded-xl border mb-2 ${
-        isHidden
-          ? "border-pokedex-border bg-pokedex-panel"
-          : "border-pokedex-border bg-bg-input"
-      }`}
+      className="p-3 rounded-xl border border-pokedex-border bg-bg-input mb-2"
     >
       <View className="flex-row items-center justify-between">
-        <Text
-          className="text-white text-xs capitalize"
-          style={{ fontFamily: "Nunito_400Regular" }}
-        >
-          {ability.ability.name.replace("-", " ")}
-        </Text>
+        <View className="flex-row items-center gap-2">
+          {isHidden ? (
+            <EyeOff size={14} color="#FFCC33" strokeWidth={1.8} />
+          ) : (
+            <Eye size={14} color="#4C7DF0" strokeWidth={1.8} />
+          )}
+          <Text
+            className="text-white text-xs capitalize"
+            style={{ fontFamily: "RobotoMono_400Regular" }}
+          >
+            {ability.ability.name.replace(/-/g, " ")}
+          </Text>
+        </View>
         {isHidden && (
           <View className="bg-pokedex-border rounded-full px-2 py-0.5">
             <Text
               className="text-xs"
-              style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+              style={{ fontFamily: "Orbitron", color: "#9CA3AF" }}
             >
               HIDDEN
             </Text>
@@ -48,7 +52,7 @@ function AbilityRow({
       {expanded && englishEffect ? (
         <Text
           className="text-xs mt-2 leading-5"
-          style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#9CA3AF" }}
         >
           {englishEffect}
         </Text>
@@ -56,7 +60,7 @@ function AbilityRow({
       {!englishEffect && expanded ? (
         <Text
           className="text-xs mt-2"
-          style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
         >
           No description available.
         </Text>
@@ -70,23 +74,31 @@ export default function PokemonAbilities({
 }: {
   abilities: PokemonAbility[];
 }) {
+  const normalCount = abilities.filter((a) => !a.is_hidden).length;
+  const hiddenCount = abilities.filter((a) => a.is_hidden).length;
+
   return (
-    <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-      <Text
-        className="text-xs tracking-widest mb-3"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-      >
-        ABILITIES
-      </Text>
-      <Text
-        className="text-xs mb-3"
-        style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
-      >
-        Tap an ability to see its effect.
-      </Text>
+    <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
+      <View className="flex-row items-center justify-between mb-3">
+        <Text
+          className="text-xs"
+          style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+        >
+          ABILITIES
+        </Text>
+        <View className="w-2 h-2 rounded-full bg-pokedex-blue" />
+      </View>
+
       {abilities.map((a) => (
         <AbilityRow key={a.ability.name} ability={a} isHidden={a.is_hidden} />
       ))}
+
+      <Text
+        className="text-xs text-center mt-1"
+        style={{ fontFamily: "Orbitron", color: "#6B7280" }}
+      >
+        {normalCount} NORMAL · {hiddenCount} HIDDEN
+      </Text>
     </View>
   );
 }

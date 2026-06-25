@@ -2,8 +2,14 @@ import { PokemonMove } from "@/types/pokemon";
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { ChevronRight } from "lucide-react-native";
-import { Platform, useState } from "react";
-import { ScrollView, Text, TouchableOpacity, View } from "react-native";
+import { useState } from "react";
+import {
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
 const LEARN_METHODS = ["level-up", "machine", "egg", "tutor"] as const;
 type LearnMethod = (typeof LEARN_METHODS)[number];
@@ -45,15 +51,17 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
   };
 
   return (
-    <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
-      <Text
-        className="text-xs tracking-widest mb-3"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-      >
-        MOVES
-      </Text>
+    <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
+      <View className="flex-row items-center justify-between mb-3">
+        <Text
+          className="text-xs"
+          style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+        >
+          MOVES
+        </Text>
+        <View className="w-2 h-2 rounded-full bg-pokedex-blue" />
+      </View>
 
-      {/* Learn method tabs */}
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -75,8 +83,8 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
                 <Text
                   className="text-xs"
                   style={{
-                    fontFamily: "ShareTechMono",
-                    color: isActive ? "#CC0000" : "#606070",
+                    fontFamily: "Orbitron_500Medium",
+                    color: isActive ? "#E53E3E" : "#6B7280",
                   }}
                 >
                   {METHOD_LABELS[method]}
@@ -87,28 +95,26 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
         </View>
       </ScrollView>
 
-      {/* Move list */}
       {filtered.length === 0 ? (
         <Text
           className="text-xs"
-          style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
         >
           No moves via this method.
         </Text>
       ) : (
         <View>
-          {/* Header */}
           <View className="flex-row mb-2 px-1">
             <Text
               className="text-xs flex-1"
-              style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+              style={{ fontFamily: "Orbitron", color: "#6B7280" }}
             >
               MOVE
             </Text>
             {activeMethod === "level-up" && (
               <Text
                 className="text-xs w-10 text-right"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                style={{ fontFamily: "Orbitron", color: "#6B7280" }}
               >
                 LVL
               </Text>
@@ -127,21 +133,27 @@ export default function PokemonMoves({ moves }: { moves: PokemonMove[] }) {
             >
               <Text
                 className="flex-1 text-sm capitalize"
-                style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#D1D5DB",
+                }}
               >
                 {move.name.replace(/-/g, " ")}
               </Text>
               {activeMethod === "level-up" && (
                 <Text
                   className="text-xs w-10 text-right"
-                  style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                  style={{
+                    fontFamily: "RobotoMono_400Regular",
+                    color: "#6B7280",
+                  }}
                 >
                   {move.level === 0 ? "—" : move.level}
                 </Text>
               )}
               <ChevronRight
                 size={14}
-                color="#606070"
+                color="#6B7280"
                 strokeWidth={1.8}
                 style={{ marginLeft: 4 }}
               />
