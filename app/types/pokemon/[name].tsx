@@ -9,16 +9,16 @@ import { Image } from "expo-image";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-    ActivityIndicator,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 function TypeBadge({ type }: { type: string }) {
-  const color = TypeColors[type] ?? "#A8A878";
+  const color = TypeColors[type] ?? "#8E9B92";
   return (
     <View
       className="rounded-full px-3 py-1"
@@ -29,8 +29,8 @@ function TypeBadge({ type }: { type: string }) {
       }}
     >
       <Text
-        className="text-xs tracking-widest"
-        style={{ fontFamily: "ShareTechMono", color }}
+        className="text-xs"
+        style={{ fontFamily: "Orbitron_500Medium", color }}
       >
         {type.toUpperCase()}
       </Text>
@@ -65,17 +65,16 @@ export default function TypePokemonDetail() {
 
   return (
     <View className="flex-1 bg-bg-dark" style={{ paddingTop: insets.top }}>
-      {/* Header */}
       <View className="flex-row items-center gap-3 px-4 pt-4 pb-3">
         <TouchableOpacity
           onPress={() => router.back()}
           className="w-9 h-9 items-center justify-center rounded-xl border border-pokedex-border bg-bg-input"
         >
-          <ChevronLeft size={18} color="#A0A0B0" strokeWidth={1.8} />
+          <ChevronLeft size={18} color="#9CA3AF" strokeWidth={1.8} />
         </TouchableOpacity>
         <Text
-          className="text-white text-base tracking-widest capitalize"
-          style={{ fontFamily: "ShareTechMono" }}
+          className="text-white text-base capitalize"
+          style={{ fontFamily: "Orbitron_700Bold" }}
         >
           {name}
         </Text>
@@ -83,19 +82,19 @@ export default function TypePokemonDetail() {
 
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#CC0000" size="large" />
+          <ActivityIndicator color="#4C7DF0" size="large" />
           <Text
-            className="text-xs tracking-widest mt-4"
-            style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+            className="text-xs mt-4"
+            style={{ fontFamily: "Orbitron_500Medium", color: "#9CA3AF" }}
           >
-            LOADING...
+            LOADING DATA...
           </Text>
         </View>
       ) : isError || !pokemon ? (
         <View className="flex-1 items-center justify-center px-8">
           <Text
-            className="text-pokedex-red text-sm tracking-widest mb-2"
-            style={{ fontFamily: "ShareTechMono" }}
+            className="text-pokedex-red text-sm mb-2"
+            style={{ fontFamily: "Orbitron_700Bold" }}
           >
             NOT FOUND
           </Text>
@@ -105,11 +104,10 @@ export default function TypePokemonDetail() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
         >
-          {/* Identity block */}
-          <View className="items-center px-4 pt-4 pb-6 bg-pokedex-screen mx-4 rounded-2xl border border-pokedex-border mt-2">
+          <View className="items-center px-4 pt-4 pb-6 bg-screen-bg mx-4 rounded-2xl border border-pokedex-border mt-2">
             <Text
-              className="text-xs tracking-widest mb-1"
-              style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+              className="text-xs mb-1"
+              style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
             >
               #{String(pokemon.id).padStart(4, "0")}
             </Text>
@@ -122,8 +120,8 @@ export default function TypePokemonDetail() {
             />
 
             <Text
-              className="text-white text-2xl tracking-widest mt-2"
-              style={{ fontFamily: "ShareTechMono" }}
+              className="text-white text-2xl mt-2"
+              style={{ fontFamily: "Orbitron_900Black" }}
             >
               {pokemon.name.toUpperCase()}
             </Text>
@@ -131,7 +129,10 @@ export default function TypePokemonDetail() {
             {englishGenus ? (
               <Text
                 className="text-xs mt-1"
-                style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#9CA3AF",
+                }}
               >
                 {englishGenus}
               </Text>
@@ -155,13 +156,13 @@ export default function TypePokemonDetail() {
                 <View key={item.label} className="items-center flex-1">
                   <Text
                     className="text-white text-sm"
-                    style={{ fontFamily: "Nunito_400Regular" }}
+                    style={{ fontFamily: "RobotoMono_600SemiBold" }}
                   >
                     {item.value}
                   </Text>
                   <Text
                     className="text-xs mt-0.5"
-                    style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                    style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                   >
                     {item.label}
                   </Text>

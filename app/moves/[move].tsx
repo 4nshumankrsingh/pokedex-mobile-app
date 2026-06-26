@@ -4,32 +4,32 @@ import { useMove } from "@/hooks/usePokemon";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-    ActivityIndicator,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const DAMAGE_CLASS_COLORS: Record<string, string> = {
-  physical: "#F5AC78",
-  special: "#9DB7F5",
-  status: "#A0A0B0",
+  physical: "#E8772E",
+  special: "#3B5FE0",
+  status: "#9CA3AF",
 };
 
 function StatRow({ label, value }: { label: string; value: string }) {
   return (
     <View className="flex-row items-center justify-between py-2.5 border-b border-pokedex-border">
       <Text
-        className="text-xs tracking-widest"
-        style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+        className="text-xs"
+        style={{ fontFamily: "Orbitron", color: "#6B7280" }}
       >
         {label}
       </Text>
       <Text
         className="text-sm"
-        style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+        style={{ fontFamily: "RobotoMono_400Regular", color: "#D1D5DB" }}
       >
         {value}
       </Text>
@@ -44,8 +44,8 @@ export default function MoveDetailScreen() {
 
   const { data: move, isLoading, isError } = useMove(moveName);
   const typeColor = move?.type?.name
-    ? (TypeColors[move.type.name] ?? "#A0A0B0")
-    : "#A0A0B0";
+    ? (TypeColors[move.type.name] ?? "#9CA3AF")
+    : "#9CA3AF";
 
   const machineUrls = move?.machines?.map((m) => m.machine.url) ?? [];
   const { machines: machineDetails, isLoading: machinesLoading } =
@@ -62,17 +62,16 @@ export default function MoveDetailScreen() {
 
   return (
     <View className="flex-1 bg-bg-dark" style={{ paddingTop: insets.top }}>
-      {/* Header */}
       <View className="flex-row items-center gap-3 px-4 pt-4 pb-3">
         <TouchableOpacity
           onPress={() => router.back()}
           className="w-9 h-9 items-center justify-center rounded-xl border border-pokedex-border bg-bg-input"
         >
-          <ChevronLeft size={18} color="#A0A0B0" strokeWidth={1.8} />
+          <ChevronLeft size={18} color="#9CA3AF" strokeWidth={1.8} />
         </TouchableOpacity>
         <Text
-          className="text-white text-base tracking-widest capitalize flex-1"
-          style={{ fontFamily: "ShareTechMono" }}
+          className="text-white text-base capitalize flex-1"
+          style={{ fontFamily: "Orbitron_700Bold" }}
           numberOfLines={1}
         >
           {moveName.replace(/-/g, " ").toUpperCase()}
@@ -81,25 +80,25 @@ export default function MoveDetailScreen() {
 
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#CC0000" size="large" />
+          <ActivityIndicator color="#4C7DF0" size="large" />
           <Text
-            className="text-xs tracking-widest mt-4"
-            style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+            className="text-xs mt-4"
+            style={{ fontFamily: "Orbitron_500Medium", color: "#9CA3AF" }}
           >
-            LOADING...
+            LOADING DATA...
           </Text>
         </View>
       ) : isError || !move ? (
         <View className="flex-1 items-center justify-center px-8">
           <Text
-            className="text-pokedex-red text-sm tracking-widest mb-2"
-            style={{ fontFamily: "ShareTechMono" }}
+            className="text-pokedex-red text-sm mb-2"
+            style={{ fontFamily: "Orbitron_700Bold" }}
           >
             NOT FOUND
           </Text>
           <Text
             className="text-center text-xs"
-            style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+            style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
           >
             Could not load move data.
           </Text>
@@ -109,10 +108,8 @@ export default function MoveDetailScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
         >
-          {/* Identity block */}
-          <View className="mx-4 mt-2 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+          <View className="mx-4 mt-2 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
             <View className="flex-row items-center gap-3 mb-4">
-              {/* Type badge */}
               <View
                 className="rounded-full px-3 py-1"
                 style={{
@@ -122,23 +119,22 @@ export default function MoveDetailScreen() {
                 }}
               >
                 <Text
-                  className="text-xs tracking-widest"
-                  style={{ fontFamily: "ShareTechMono", color: typeColor }}
+                  className="text-xs"
+                  style={{ fontFamily: "Orbitron_500Medium", color: typeColor }}
                 >
                   {move.type.name.toUpperCase()}
                 </Text>
               </View>
 
-              {/* Damage class badge */}
               {move.damage_class && (
                 <View className="rounded-full px-3 py-1 border border-pokedex-border bg-bg-input">
                   <Text
-                    className="text-xs tracking-widest"
+                    className="text-xs"
                     style={{
-                      fontFamily: "ShareTechMono",
+                      fontFamily: "Orbitron_500Medium",
                       color:
                         DAMAGE_CLASS_COLORS[move.damage_class.name] ??
-                        "#A0A0B0",
+                        "#9CA3AF",
                     }}
                   >
                     {move.damage_class.name.toUpperCase()}
@@ -147,7 +143,6 @@ export default function MoveDetailScreen() {
               )}
             </View>
 
-            {/* Core stats */}
             <StatRow
               label="POWER"
               value={move.power != null ? String(move.power) : "—"}
@@ -177,18 +172,20 @@ export default function MoveDetailScreen() {
             )}
           </View>
 
-          {/* Effect description */}
           {englishEffect && (
-            <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+            <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
               <Text
-                className="text-xs tracking-widest mb-3"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs mb-3"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 EFFECT
               </Text>
               <Text
                 className="text-sm leading-6"
-                style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#D1D5DB",
+                }}
               >
                 {englishEffect.effect.replace(
                   /\$effect_chance/g,
@@ -198,30 +195,31 @@ export default function MoveDetailScreen() {
             </View>
           )}
 
-          {/* Flavor text */}
           {englishFlavorText ? (
-            <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+            <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
               <Text
-                className="text-xs tracking-widest mb-3"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs mb-3"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 DESCRIPTION
               </Text>
               <Text
                 className="text-sm leading-6"
-                style={{ fontFamily: "Nunito_400Regular", color: "#A0A0B0" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#D1D5DB",
+                }}
               >
                 {englishFlavorText.replace(/\f|\n/g, " ").trim()}
               </Text>
             </View>
           ) : null}
 
-          {/* Move meta */}
           {move.meta && (
-            <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+            <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
               <Text
-                className="text-xs tracking-widest mb-3"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs mb-3"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 BATTLE DATA
               </Text>
@@ -267,19 +265,18 @@ export default function MoveDetailScreen() {
             </View>
           )}
 
-          {/* Machines (TM/HM) */}
           {machineUrls.length > 0 && (
-            <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+            <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
               <Text
-                className="text-xs tracking-widest mb-3"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs mb-3"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 TM / HM
               </Text>
               {machinesLoading ? (
                 <Text
                   className="text-xs"
-                  style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                  style={{ fontFamily: "Orbitron_500Medium", color: "#6B7280" }}
                 >
                   LOADING...
                 </Text>
@@ -296,15 +293,15 @@ export default function MoveDetailScreen() {
                     <Text
                       className="text-sm capitalize"
                       style={{
-                        fontFamily: "Nunito_400Regular",
-                        color: "#A0A0B0",
+                        fontFamily: "RobotoMono_400Regular",
+                        color: "#D1D5DB",
                       }}
                     >
                       {m.item.name.toUpperCase()}
                     </Text>
                     <Text
                       className="text-xs"
-                      style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                      style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                     >
                       {m.versionGroup.replace(/-/g, " ")}
                     </Text>
@@ -314,19 +311,21 @@ export default function MoveDetailScreen() {
             </View>
           )}
 
-          {/* Learned by */}
           {move.learned_by_pokemon?.length > 0 && (
-            <View className="mx-4 mt-3 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+            <View className="mx-4 mt-3 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
               <View className="flex-row items-center justify-between mb-3">
                 <Text
-                  className="text-xs tracking-widest"
-                  style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                  className="text-xs"
+                  style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
                 >
                   LEARNED BY
                 </Text>
                 <Text
                   className="text-xs"
-                  style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                  style={{
+                    fontFamily: "RobotoMono_400Regular",
+                    color: "#6B7280",
+                  }}
                 >
                   {move.learned_by_pokemon.length} Pokémon
                 </Text>
@@ -340,8 +339,8 @@ export default function MoveDetailScreen() {
                     <Text
                       className="text-xs capitalize"
                       style={{
-                        fontFamily: "Nunito_400Regular",
-                        color: "#A0A0B0",
+                        fontFamily: "RobotoMono_400Regular",
+                        color: "#D1D5DB",
                       }}
                     >
                       {p.name.replace(/-/g, " ")}

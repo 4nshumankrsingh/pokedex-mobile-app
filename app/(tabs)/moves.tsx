@@ -40,26 +40,25 @@ export default function MovesTab() {
     <View className="flex-1 bg-bg-dark" style={{ paddingTop: insets.top }}>
       <View className="px-4 pt-4 pb-2">
         <Text
-          className="text-pokedex-red text-2xl tracking-widest mb-1"
-          style={{ fontFamily: "ShareTechMono" }}
+          className="text-pokedex-red text-2xl mb-1"
+          style={{ fontFamily: "Orbitron_700Bold" }}
         >
           MOVES
         </Text>
         <Text
           className="text-xs mb-4"
-          style={{ fontFamily: "Nunito_400Regular", color: "#606070" }}
+          style={{ fontFamily: "RobotoMono_400Regular", color: "#6B7280" }}
         >
           Browse and search all Pokémon moves
         </Text>
 
-        {/* Search input */}
         <View
           className={`flex-row items-center bg-bg-input rounded-lg px-3 gap-2 border mb-2 ${
             isFocused ? "border-pokedex-red" : "border-pokedex-border"
           }`}
           style={{ height: 44 }}
         >
-          <Search size={16} color="#606070" strokeWidth={1.8} />
+          <Search size={16} color="#9CA3AF" strokeWidth={1.8} />
           <TextInput
             ref={inputRef}
             value={query}
@@ -70,7 +69,7 @@ export default function MovesTab() {
             onFocus={() => setIsFocused(true)}
             onBlur={() => setTimeout(() => setIsFocused(false), 150)}
             placeholder="Search moves..."
-            placeholderTextColor="#606070"
+            placeholderTextColor="#6B7280"
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="search"
@@ -78,16 +77,15 @@ export default function MovesTab() {
               if (suggestions.length > 0) handleSelect(suggestions[0].name);
             }}
             className="flex-1 text-white text-sm"
-            style={{ fontFamily: "Nunito_400Regular" }}
+            style={{ fontFamily: "RobotoMono_400Regular" }}
           />
           {query.length > 0 && (
             <TouchableOpacity onPress={() => setQuery("")}>
-              <X size={16} color="#606070" strokeWidth={1.8} />
+              <X size={16} color="#6B7280" strokeWidth={1.8} />
             </TouchableOpacity>
           )}
         </View>
 
-        {/* Autocomplete suggestions */}
         {showSuggestions && (
           <View className="bg-bg-card border border-pokedex-border rounded-lg mb-2 overflow-hidden">
             {suggestions.map((s, i) => (
@@ -102,13 +100,13 @@ export default function MovesTab() {
               >
                 <Text
                   className="text-white text-sm capitalize"
-                  style={{ fontFamily: "Nunito_400Regular" }}
+                  style={{ fontFamily: "RobotoMono_400Regular" }}
                 >
                   {s.name.replace(/-/g, " ")}
                 </Text>
                 <Text
                   className="text-xs"
-                  style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                  style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                 >
                   #{s.id.padStart(4, "0")}
                 </Text>
@@ -118,7 +116,6 @@ export default function MovesTab() {
         )}
       </View>
 
-      {/* Move list */}
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{
@@ -129,24 +126,27 @@ export default function MovesTab() {
         {isLoading ? (
           <View className="items-center py-8">
             <Text
-              className="text-xs tracking-widest"
-              style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+              className="text-xs"
+              style={{ fontFamily: "Orbitron_500Medium", color: "#9CA3AF" }}
             >
               LOADING MOVES...
             </Text>
           </View>
         ) : (
-          <View className="bg-pokedex-screen rounded-2xl border border-pokedex-border overflow-hidden">
+          <View className="bg-screen-bg rounded-2xl border border-pokedex-border overflow-hidden">
             <View className="flex-row items-center justify-between px-4 py-3 border-b border-pokedex-border">
               <Text
-                className="text-xs tracking-widest"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 ALL MOVES
               </Text>
               <Text
                 className="text-xs"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#6B7280",
+                }}
               >
                 {paginatedMoves.length} total
               </Text>
@@ -168,15 +168,15 @@ export default function MovesTab() {
                   <Text
                     className="text-sm capitalize flex-1"
                     style={{
-                      fontFamily: "Nunito_400Regular",
-                      color: "#A0A0B0",
+                      fontFamily: "RobotoMono_400Regular",
+                      color: "#D1D5DB",
                     }}
                   >
                     {move.name.replace(/-/g, " ")}
                   </Text>
                   <Text
                     className="text-xs"
-                    style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                    style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                   >
                     #{id.padStart(4, "0")}
                   </Text>
@@ -190,8 +190,8 @@ export default function MovesTab() {
                 className="py-3 items-center border-t border-pokedex-border bg-bg-input"
               >
                 <Text
-                  className="text-xs tracking-widest"
-                  style={{ fontFamily: "ShareTechMono", color: "#A0A0B0" }}
+                  className="text-xs"
+                  style={{ fontFamily: "Orbitron_500Medium", color: "#9CA3AF" }}
                 >
                   LOAD MORE
                 </Text>

@@ -5,12 +5,12 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import { useState } from "react";
 import {
-    ActivityIndicator,
-    Platform,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -35,15 +35,15 @@ function DamageSection({
     <View className="mb-4">
       <View className="flex-row items-center gap-2 mb-2">
         <Text
-          className="text-xs tracking-widest"
-          style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+          className="text-xs"
+          style={{ fontFamily: "Orbitron_500Medium", color: "#6B7280" }}
         >
           {label}
         </Text>
         <View className="bg-bg-input border border-pokedex-border rounded-full px-2 py-0.5">
           <Text
             className="text-xs"
-            style={{ fontFamily: "ShareTechMono", color: "#A0A0B0" }}
+            style={{ fontFamily: "RobotoMono_400Regular", color: "#9CA3AF" }}
           >
             {multiplier}
           </Text>
@@ -51,7 +51,7 @@ function DamageSection({
       </View>
       <View className="flex-row flex-wrap gap-2">
         {types.map((t) => {
-          const color = TypeColors[t.name] ?? "#A8A878";
+          const color = TypeColors[t.name] ?? "#8E9B92";
           return (
             <View
               key={t.name}
@@ -63,8 +63,8 @@ function DamageSection({
               }}
             >
               <Text
-                className="text-xs tracking-widest"
-                style={{ fontFamily: "ShareTechMono", color }}
+                className="text-xs"
+                style={{ fontFamily: "Orbitron_500Medium", color }}
               >
                 {t.name.toUpperCase()}
               </Text>
@@ -83,7 +83,7 @@ export default function TypeDetailScreen() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, isError } = useType(type);
-  const color = TypeColors[type] ?? "#A8A878";
+  const color = TypeColors[type] ?? "#8E9B92";
 
   const allPokemon = data?.pokemon ?? [];
   const totalPages = Math.ceil(allPokemon.length / PAGE_SIZE);
@@ -97,13 +97,12 @@ export default function TypeDetailScreen() {
 
   return (
     <View className="flex-1 bg-bg-dark" style={{ paddingTop: insets.top }}>
-      {/* Header */}
       <View className="flex-row items-center gap-3 px-4 pt-4 pb-3">
         <TouchableOpacity
           onPress={() => router.back()}
           className="w-9 h-9 items-center justify-center rounded-xl border border-pokedex-border bg-bg-input"
         >
-          <ChevronLeft size={18} color="#A0A0B0" strokeWidth={1.8} />
+          <ChevronLeft size={18} color="#9CA3AF" strokeWidth={1.8} />
         </TouchableOpacity>
         <View
           className="rounded-full px-4 py-1.5"
@@ -114,8 +113,8 @@ export default function TypeDetailScreen() {
           }}
         >
           <Text
-            className="text-sm tracking-widest"
-            style={{ fontFamily: "ShareTechMono", color }}
+            className="text-sm"
+            style={{ fontFamily: "Orbitron_700Bold", color }}
           >
             {type.toUpperCase()}
           </Text>
@@ -124,13 +123,13 @@ export default function TypeDetailScreen() {
 
       {isLoading ? (
         <View className="flex-1 items-center justify-center">
-          <ActivityIndicator color="#CC0000" size="large" />
+          <ActivityIndicator color="#4C7DF0" size="large" />
         </View>
       ) : isError || !data ? (
         <View className="flex-1 items-center justify-center px-8">
           <Text
-            className="text-pokedex-red text-sm tracking-widest"
-            style={{ fontFamily: "ShareTechMono" }}
+            className="text-pokedex-red text-sm"
+            style={{ fontFamily: "Orbitron_700Bold" }}
           >
             FAILED TO LOAD
           </Text>
@@ -140,18 +139,20 @@ export default function TypeDetailScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: insets.bottom + 24 }}
         >
-          {/* Damage relations */}
-          <View className="mx-4 mt-2 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border mb-4">
-            <Text
-              className="text-xs tracking-widest mb-4"
-              style={{ fontFamily: "ShareTechMono", color: "#606070" }}
-            >
-              DAMAGE RELATIONS
-            </Text>
+          <View className="mx-4 mt-2 p-4 bg-screen-bg rounded-2xl border border-pokedex-border mb-4">
+            <View className="flex-row items-center justify-between mb-4">
+              <Text
+                className="text-xs"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
+              >
+                DAMAGE RELATIONS
+              </Text>
+              <View className="w-2 h-2 rounded-full bg-pokedex-blue" />
+            </View>
 
             <Text
-              className="text-xs tracking-widest mb-3"
-              style={{ fontFamily: "ShareTechMono", color: "#A0A0B0" }}
+              className="text-xs mb-3"
+              style={{ fontFamily: "Orbitron_500Medium", color: "#D1D5DB" }}
             >
               ATTACKING
             </Text>
@@ -174,8 +175,8 @@ export default function TypeDetailScreen() {
             <View className="h-px bg-pokedex-border my-3" />
 
             <Text
-              className="text-xs tracking-widest mb-3"
-              style={{ fontFamily: "ShareTechMono", color: "#A0A0B0" }}
+              className="text-xs mb-3"
+              style={{ fontFamily: "Orbitron_500Medium", color: "#D1D5DB" }}
             >
               DEFENDING
             </Text>
@@ -196,18 +197,20 @@ export default function TypeDetailScreen() {
             />
           </View>
 
-          {/* Pokémon list */}
-          <View className="mx-4 p-4 bg-pokedex-screen rounded-2xl border border-pokedex-border">
+          <View className="mx-4 p-4 bg-screen-bg rounded-2xl border border-pokedex-border">
             <View className="flex-row items-center justify-between mb-3">
               <Text
-                className="text-xs tracking-widest"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                className="text-xs"
+                style={{ fontFamily: "Orbitron_700Bold", color: "#9CA3AF" }}
               >
                 POKÉMON
               </Text>
               <Text
                 className="text-xs"
-                style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                style={{
+                  fontFamily: "RobotoMono_400Regular",
+                  color: "#6B7280",
+                }}
               >
                 {allPokemon.length} total
               </Text>
@@ -229,15 +232,15 @@ export default function TypeDetailScreen() {
                   <Text
                     className="text-sm capitalize"
                     style={{
-                      fontFamily: "Nunito_400Regular",
-                      color: "#A0A0B0",
+                      fontFamily: "RobotoMono_400Regular",
+                      color: "#D1D5DB",
                     }}
                   >
                     {entry.pokemon.name.replace(/-/g, " ")}
                   </Text>
                   <Text
                     className="text-xs"
-                    style={{ fontFamily: "ShareTechMono", color: "#606070" }}
+                    style={{ fontFamily: "Orbitron", color: "#6B7280" }}
                   >
                     #{id.padStart(4, "0")}
                   </Text>
@@ -245,15 +248,14 @@ export default function TypeDetailScreen() {
               );
             })}
 
-            {/* Load more */}
             {page < totalPages && (
               <TouchableOpacity
                 onPress={() => setPage((p) => p + 1)}
                 className="mt-4 py-3 rounded-xl border border-pokedex-border bg-bg-input items-center"
               >
                 <Text
-                  className="text-xs tracking-widest"
-                  style={{ fontFamily: "ShareTechMono", color: "#A0A0B0" }}
+                  className="text-xs"
+                  style={{ fontFamily: "Orbitron_500Medium", color: "#9CA3AF" }}
                 >
                   LOAD MORE
                 </Text>
