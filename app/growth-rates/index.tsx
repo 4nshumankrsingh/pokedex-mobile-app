@@ -4,31 +4,24 @@ import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-  ActivityIndicator,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Platform,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const ROMAN_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
-
-function extractId(url: string) {
-  const parts = url.split("/").filter(Boolean);
-  return parts[parts.length - 1];
-}
-
-export default function GenerationsListScreen() {
+export default function GrowthRatesListScreen() {
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["generation-list"],
+    queryKey: ["growth-rate-list"],
     queryFn: async () => {
-      const res = await fetch("https://pokeapi.co/api/v2/generation?limit=20");
-      if (!res.ok) throw new Error("Failed to fetch generations");
+      const res = await fetch("https://pokeapi.co/api/v2/growth-rate?limit=20");
+      if (!res.ok) throw new Error("Failed to fetch growth rates");
       return res.json() as Promise<NamedAPIResourceList>;
     },
     staleTime: Infinity,
@@ -37,7 +30,7 @@ export default function GenerationsListScreen() {
   const handlePress = (name: string) => {
     if (Platform.OS !== "web")
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.push(`/generations/${name}`);
+    router.push(`/growth-rates/${name}`);
   };
 
   return (
@@ -53,7 +46,7 @@ export default function GenerationsListScreen() {
           className="text-pokedex-red text-xl"
           style={{ fontFamily: "Orbitron_700Bold" }}
         >
-          GENERATIONS
+          GROWTH RATES
         </Text>
       </View>
 
@@ -79,45 +72,28 @@ export default function GenerationsListScreen() {
           }}
         >
           <View className="bg-screen-bg rounded-2xl border border-pokedex-border overflow-hidden">
-            {data.results.map((gen, i) => {
-              const id = extractId(gen.url);
-              const numeral = ROMAN_NUMERALS[parseInt(id, 10) - 1] ?? id;
-              return (
-                <TouchableOpacity
-                  key={gen.name}
-                  onPress={() => handlePress(gen.name)}
-                  activeOpacity={0.7}
-                  className={`flex-row items-center justify-between px-4 py-4 ${
-                    i < data.results.length - 1
-                      ? "border-b border-pokedex-border"
-                      : ""
-                  }`}
+            {data.results.map((rate, i) => (
+              <TouchableOpacity
+                key={rate.name}
+                onPress={() => handlePress(rate.name)}
+                activeOpacity={0.7}
+                className={`flex-row items-center justify-between px-4 py-4 ${
+                  i < data.results.length - 1
+                    ? "border-b border-pokedex-border"
+                    : ""
+                }`}
+              >
+                <Text
+                  className="text-sm capitalize"
+                  style={{
+                    fontFamily: "RobotoMono_400Regular",
+                    color: "#D1D5DB",
+                  }}
                 >
-                  <View className="flex-row items-center gap-3">
-                    <View className="w-9 h-9 rounded-lg bg-bg-input border border-pokedex-border items-center justify-center">
-                      <Text
-                        className="text-xs"
-                        style={{
-                          fontFamily: "Orbitron_700Bold",
-                          color: "#4C7DF0",
-                        }}
-                      >
-                        {numeral}
-                      </Text>
-                    </View>
-                    <Text
-                      className="text-sm capitalize"
-                      style={{
-                        fontFamily: "RobotoMono_400Regular",
-                        color: "#D1D5DB",
-                      }}
-                    >
-                      {gen.name.replace(/-/g, " ")}
-                    </Text>
-                  </View>
-                </TouchableOpacity>
-              );
-            })}
+                  {rate.name.replace(/-/g, " ")}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </ScrollView>
       )}

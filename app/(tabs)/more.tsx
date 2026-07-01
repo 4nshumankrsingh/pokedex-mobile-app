@@ -1,6 +1,13 @@
 import * as Haptics from "expo-haptics";
 import { useRouter } from "expo-router";
-import { Globe2, Layers3 } from "lucide-react-native";
+import {
+  BookMarked,
+  Globe2,
+  Layers3,
+  Leaf,
+  TrendingUp,
+  Zap,
+} from "lucide-react-native";
 import {
   Platform,
   ScrollView,
@@ -24,6 +31,34 @@ const MENU_ITEMS = [
     description: "Explore game regions",
     Icon: Globe2,
     route: "/regions",
+  },
+  {
+    key: "natures",
+    label: "NATURES",
+    description: "Stat modifiers and flavor preferences",
+    Icon: Leaf,
+    route: "/natures",
+  },
+  {
+    key: "growth-rates",
+    label: "GROWTH RATES",
+    description: "Experience curves for levelling up",
+    Icon: TrendingUp,
+    route: "/growth-rates",
+  },
+  {
+    key: "pokedexes",
+    label: "POKÉDEXES",
+    description: "Regional Pokédex listings",
+    Icon: BookMarked,
+    route: "/pokedexes",
+  },
+  {
+    key: "pokeathlon-stats",
+    label: "POKÉATHLON",
+    description: "Pokéathlon performance stats",
+    Icon: Zap,
+    route: "/pokeathlon-stats",
   },
 ];
 
