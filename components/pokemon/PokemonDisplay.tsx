@@ -11,6 +11,9 @@ import { Image } from "expo-image";
 import { ActivityIndicator, ScrollView, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
+import PokemonEncounters from "@/components/pokemon/PokemonEncounters";
+import PokemonHabitat from "@/components/pokemon/PokemonHabitat";
+
 function TypeBadge({ type }: { type: string }) {
   const color = TypeColors[type] ?? "#8E9B92";
   return (
@@ -219,6 +222,8 @@ export default function PokemonDisplay() {
       ) : null}
 
       <PokemonMoves moves={pokemon.moves} />
+      <PokemonHabitat speciesName={pokemon.species.name} />
+      <PokemonEncounters pokemonName={pokemon.name} />
     </ScrollView>
   );
 }

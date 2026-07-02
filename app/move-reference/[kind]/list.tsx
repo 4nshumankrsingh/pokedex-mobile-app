@@ -1,36 +1,52 @@
 import { NamedAPIResourceList } from "@/types/pokemon";
 import { useQuery } from "@tanstack/react-query";
 import * as Haptics from "expo-haptics";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-  ActivityIndicator,
-  Platform,
-  ScrollView,
-  Text,
-  TouchableOpacity,
-  View,
+    ActivityIndicator,
+    Platform,
+    ScrollView,
+    Text,
+    TouchableOpacity,
+    View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-export default function PokedexesListScreen() {
+const KIND_CONFIG: Record<string, { label: string; endpoint: string }> = {
+  category: { label: "MOVE CATEGORIES", endpoint: "move-category" },
+  "damage-class": { label: "DAMAGE CLASSES", endpoint: "move-damage-class" },
+  "battle-style": { label: "BATTLE STYLES", endpoint: "move-battle-style" },
+  "learn-method": { label: "LEARN METHODS", endpoint: "move-learn-method" },
+};
+
+export default function MoveReferenceListScreen() {
+  const { kind } = useLocalSearchParams<{ kind: string }>();
   const insets = useSafeAreaInsets();
   const router = useRouter();
 
+  const config = KIND_CONFIG[kind] ?? {
+    label: kind?.toUpperCase(),
+    endpoint: kind,
+  };
+
   const { data, isLoading, isError } = useQuery({
-    queryKey: ["pokedex-list"],
+    queryKey: ["move-ref-list", kind],
     queryFn: async () => {
-      const res = await fetch("https://pokeapi.co/api/v2/pokedex?limit=50");
-      if (!res.ok) throw new Error("Failed to fetch pokédexes");
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/${config.endpoint}?limit=50`,
+      );
+      if (!res.ok) throw new Error(`Failed to fetch ${kind} list`);
       return res.json() as Promise<NamedAPIResourceList>;
     },
     staleTime: Infinity,
+    enabled: !!kind,
   });
 
   const handlePress = (name: string) => {
     if (Platform.OS !== "web")
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.push(`/pokedexes/${name}`);
+    router.push(`/move-reference/${kind}/${name}`);
   };
 
   return (
@@ -46,7 +62,7 @@ export default function PokedexesListScreen() {
           className="text-pokedex-red text-xl"
           style={{ fontFamily: "Orbitron_700Bold" }}
         >
-          POKÉDEXES
+          {config.label}
         </Text>
       </View>
 
@@ -72,10 +88,10 @@ export default function PokedexesListScreen() {
           }}
         >
           <View className="bg-screen-bg rounded-2xl border border-pokedex-border overflow-hidden">
-            {data.results.map((dex, i) => (
+            {data.results.map((item, i) => (
               <TouchableOpacity
-                key={dex.name}
-                onPress={() => handlePress(dex.name)}
+                key={item.name}
+                onPress={() => handlePress(item.name)}
                 activeOpacity={0.7}
                 className={`flex-row items-center justify-between px-4 py-4 ${
                   i < data.results.length - 1
@@ -90,7 +106,7 @@ export default function PokedexesListScreen() {
                     color: "#D1D5DB",
                   }}
                 >
-                  {dex.name.replace(/-/g, " ")}
+                  {item.name.replace(/-/g, " ")}
                 </Text>
               </TouchableOpacity>
             ))}
