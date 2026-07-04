@@ -4,12 +4,12 @@ import * as Haptics from "expo-haptics";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-    ActivityIndicator,
-    Platform,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -46,7 +46,7 @@ export default function MoveReferenceListScreen() {
   const handlePress = (name: string) => {
     if (Platform.OS !== "web")
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-    router.push(`/move-reference/${kind}/${name}`);
+    router.push(`/move-reference/${kind}/${name}` as any);
   };
 
   return (

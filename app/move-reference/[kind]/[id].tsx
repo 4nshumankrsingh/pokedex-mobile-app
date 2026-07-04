@@ -1,17 +1,17 @@
 import {
-    useMoveBattleStyle,
-    useMoveCategory,
-    useMoveDamageClass,
-    useMoveLearnMethod,
+  useMoveBattleStyle,
+  useMoveCategory,
+  useMoveDamageClass,
+  useMoveLearnMethod,
 } from "@/hooks/usePokemon";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 import {
-    ActivityIndicator,
-    ScrollView,
-    Text,
-    TouchableOpacity,
-    View,
+  ActivityIndicator,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -178,7 +178,7 @@ export default function MoveReferenceDetailScreen() {
               {moves.map((move, i) => (
                 <TouchableOpacity
                   key={move.name}
-                  onPress={() => router.push(`/moves/${move.name}`)}
+                  onPress={() => router.push(`/moves/${move.name}` as any)}
                   activeOpacity={0.7}
                   className={`flex-row items-center justify-between px-4 py-3 ${
                     i < moves.length - 1 ? "border-b border-pokedex-border" : ""
